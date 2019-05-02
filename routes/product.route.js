@@ -1,13 +1,12 @@
 const ctrl = require('../controllers/product.controller');
 
 module.exports = function (app) {
-    
-    app.get('/api/products', ctrl.Get);    
-    // app.delete('/api/users/:id', ctrl.Delete);
-	// app.patch('/api/users/:id', ctrl.Patch);
-    // app.get('/api/users/:id', ctrl.Get);
-    // app.get('/api/users', ctrl.GetAll);
-    // app.post('/api/users', ctrl.Create);
-    // app.post('/api/users/upload', ctrl.Upload);
-    
+    // CRUD
+    app.post('/api/products', ctrl.Create);
+    app.get('/api/products/:id', ctrl.Read);
+    app.patch('/api/products/:id', ctrl.Update);
+    app.delete('/api/products/:id', ctrl.Delete);
+    // get all
+    app.get('/api/products', ctrl.GetAll);
+
 }

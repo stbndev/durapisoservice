@@ -1,0 +1,12 @@
+const ctrl = require('../controllers/item.controller');
+
+module.exports = function (app) {
+    // CRUD
+    app.post('/api/items', ctrl.Create);
+    app.get('/api/items/:id', ctrl.Read);
+    app.patch('/api/items/:id', ctrl.Update);
+    app.delete('/api/items/:id', ctrl.Delete);
+    // get all
+    app.get('/api/items', ctrl.GetAll);
+
+}
