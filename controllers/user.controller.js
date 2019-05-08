@@ -25,11 +25,10 @@ module.exports = {
             "password": req.body.password,
             "description": "",
             "imgurl": "https://www.emojirequest.com/images/SalutingEmoji.jpg"
-        }
+        };
+        
         userModel.asyncLogin(objUser).then(resolve => {
-
             responseutil.Send(res, resolve.statusCode,resolve.result);
-
             next();
         }, reject => {
             // responseutil.Send(res, reject.statusCode, reject.result, reject.message, reject.href, reject.function);
