@@ -14,5 +14,5 @@ let object = new Schema({
     imgurl: String
 });
 
-let users = mongoose.model('durapiso.products', object);
-module.exports = users;
+let products = mongoose.model('durapiso.products', object);
+module.exports = products;
