@@ -4,71 +4,100 @@ const enums = require('../config/enum.util');
 // const responseutil = require('../util/response.util')
 
 module.exports = {
-    asyncUpdate:function (product) {
+    asyncDelete: function (product) {
         const promesa = new Promise(function (resolve, reject) {
             try {
-
-                let query = inventoryEntity.findOneAndUpdate({
-                    '_id': objectInventory.id
+                let query = productEntity.findOneAndUpdate({
+                    '_id': product.id
                 }, {
-                        'status_item': objectInventory.status_item,
-                        'modification_date': objectInventory.modification_date,
-                        'maker': objectInventory.maker,
-                        'product_code': objectInventory.product_code,
-                        'barcode': objectInventory.barcode,
-                        'description': objectInventory.description,
-                        'items_current': objectInventory.items_current,
-                        'items_entries': objectInventory.items_entries,
-                        'items_outgoings': objectInventory.items_outgoings,
-                        'items_stock': objectInventory.items_stock
+                        'status_item': product.status_item,
+                        'modification_date': product.modification_date,
+                        'maker': product.maker
                     }, {
                         new: true
                     }, function (error, res) {
                         if (error) {
                             reject({
-                                statusItem: enums.STATUS_ITEM.INCIDENCIA,
                                 statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
                                 result: '',
-                                message: error.message,
-                                href: '',
-                                function: ''
+                                message: error.message
                             });
                         }
-
                         if (!enums.CheckExist(res._doc)) {
                             reject({
-                                statusItem: enums.STATUS_ITEM.INCIDENCIA,
                                 statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
-                                result: ` No found item ${objectInventory.id}`,
-                                message: 'set',
-                                href: '',
-                                function: ''
+                                result: ` No found item ${product.id}`,
+                                message: 'set'
                             });
                         } else {
                             resolve({
-                                statusItem: enums.STATUS_ITEM.SUCCESS,
                                 statusCode: enums.HTTP_STATUS_CODE.OK,
                                 result: JSON.stringify(res),
-                                message: '',
-                                href: '',
-                                function: ''
+                                message: ''
                             });
                         }
                     });
             } catch (error) {
                 reject({
-                    statusItem: enums.STATUS_ITEM.INCIDENCIA,
                     statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
                     result: '',
-                    message: error.message,
-                    href: '',
-                    function: ''
+                    message: error.message
+                });
+            }
+        });
+        return promesa;
+    },
+
+    asyncUpdate: function (product) {
+        const promesa = new Promise(function (resolve, reject) {
+            try {
+                let query = productEntity.findOneAndUpdate({
+                    '_id': product.id
+                }, {
+                        'status_item': product.status_item,
+                        'modification_date': product.modification_date,
+                        'maker': product.maker,
+                        'name': product.name,
+                        'description': product.description,
+                        'cost': product.cost,
+                        'sale': product.sale,
+                        'iva': product.iva,
+                        'imgurl': product.imgurl
+                    }, {
+                        new: true
+                    }, function (error, res) {
+                        if (error) {
+                            reject({
+                                statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
+                                result: '',
+                                message: error.message
+                            });
+                        }
+                        if (!enums.CheckExist(res._doc)) {
+                            reject({
+                                statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
+                                result: ` No found item ${product.id}`,
+                                message: 'set'
+                            });
+                        } else {
+                            resolve({
+                                statusCode: enums.HTTP_STATUS_CODE.OK,
+                                result: JSON.stringify(res),
+                                message: ''
+                            });
+                        }
+                    });
+            } catch (error) {
+                reject({
+                    statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
+                    result: '',
+                    message: error.message
                 });
             }
         });
         return promesa;
     }
-    ,asyncRead: function (product) {
+    , asyncRead: function (product) {
         let promesa = new Promise(function (resolve, reject) {
             try {
                 const query = productEntity.find({ id: product.id });
@@ -142,22 +171,27 @@ module.exports = {
         return promesa;
     }
     ,
-    asyncGetAll: function () {
+    asyncGetAll: function (product) {
         let promesa = new Promise(function (resolve, reject) {
             try {
-                const query = productEntity.find({});
+                let query;
 
+                if (enums.CheckExist(product.status_item)) {
+                    query = productEntity.find({ status_item: product.status_item });
+                } else {
+                    query = productEntity.find({});
+
+                }
                 query.exec(function (error, docs) {
                     if (error) {
                         reject({
-
                             statusCode: 500,
                             result: '',
                             message: error.message
-
                         });
                     }
                     if (docs.length > 0) {
+                        console.dir(docs);
                         resolve({
                             statusCode: 200,
                             result: JSON.stringify(docs),
@@ -171,6 +205,14 @@ module.exports = {
                         });
                     }
                 });
+
+                // if (enums.CheckExist(product.status_item)) {
+                //     query = productEntity.find({ status_item: product.status_item });
+                // } else {
+                //     query = productEntity.find({});
+                // }
+
+                // query.
             } catch (error) {
                 error(error);
             }

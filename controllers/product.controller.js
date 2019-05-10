@@ -35,7 +35,7 @@ module.exports = {
             responseutil.Send(res, resolve.statusCode, resolve.result);
             next();
         }, reject => {
-            // responseutil.Send(res, reject.statusCode, reject.result, reject.message, reject.href, reject.function);
+            responseutil.Send(res, reject.statusCode, reject.result, resolve.message);
             next();
         });
     },
@@ -43,8 +43,8 @@ module.exports = {
         // Fill Inventory Object
         const datetmp = enums.DateTimeNowToMilliSeconds();
         let product = {
-            status_item: enums.STATUS_ITEM.ACTIVO,
-          //  create_date: datetmp,
+            id: req.params.id,
+            status_item: req.body.status_item,
             modification_date: datetmp,
             maker: req.body.maker,
             name: req.body.name,
@@ -59,17 +59,34 @@ module.exports = {
             responseutil.Send(res, resolve.statusCode, resolve.result);
             next();
         }, reject => {
-            // responseutil.Send(res, reject.statusCode, reject.result, reject.message, reject.href, reject.function);
+            responseutil.Send(res, reject.statusCode, reject.result, resolve.message);
             next();
         });
     },
-    Delete: function (req, res, next) { },
-    GetAll: function (req, res, next) {
-        productModel.asyncGetAll().then(resolve => {
-            responseutil.Send(res, resolve.statusCode, resolve.result);
+    Delete: function (req, res, next) {
+        const datetmp = enums.DateTimeNowToMilliSeconds();
+        let product = {
+            id: req.params.id,
+            status_item: enums.STATUS_ITEM.DELETE,
+            modification_date: datetmp,
+            maker: req.body.maker
+        }
+        productModel.asyncDelete(product).then(resolve => {
+            responseutil.Send(res, resolve.statusCode, resolve.result, resolve.message);
             next();
         }, reject => {
-            // responseutil.Send(res, reject.statusCode, reject.result, reject.message, reject.href, reject.function);
+            responseutil.Send(res, reject.statusCode, reject.result, resolve.message);
+            next();
+        });
+    },
+    GetAll: function (req, res, next) {
+
+        let product = { status_item : req.params.status }
+        productModel.asyncGetAll(product).then(resolve => {
+            responseutil.Send(res, resolve.statusCode, resolve.result);
+           //  next();
+        }, reject => {
+             responseutil.Send(res, reject.statusCode, reject.result, reject.message);
             next();
         });
     },
