@@ -30,11 +30,39 @@ module.exports = {
         });
     },
     Read: function (req, res, next) {
-        //     res.status(200).send({
-        //         'message': 'Welcome product!.'
-        //     });
+        const product = { id: req.query.id }
+        productModel.asyncRead(product).then(resolve => {
+            responseutil.Send(res, resolve.statusCode, resolve.result);
+            next();
+        }, reject => {
+            // responseutil.Send(res, reject.statusCode, reject.result, reject.message, reject.href, reject.function);
+            next();
+        });
     },
-    Update: function (req, res, next) { },
+    Update: function (req, res, next) {
+        // Fill Inventory Object
+        const datetmp = enums.DateTimeNowToMilliSeconds();
+        let product = {
+            status_item: enums.STATUS_ITEM.ACTIVO,
+          //  create_date: datetmp,
+            modification_date: datetmp,
+            maker: req.body.maker,
+            name: req.body.name,
+            description: req.body.description,
+            stock: req.body.stock,
+            cost: req.body.cost,
+            sale: req.body.sale,
+            iva: req.body.iva,
+            imgurl: req.body.imgurl
+        }
+        productModel.asyncUpdate(product).then(resolve => {
+            responseutil.Send(res, resolve.statusCode, resolve.result);
+            next();
+        }, reject => {
+            // responseutil.Send(res, reject.statusCode, reject.result, reject.message, reject.href, reject.function);
+            next();
+        });
+    },
     Delete: function (req, res, next) { },
     GetAll: function (req, res, next) {
         productModel.asyncGetAll().then(resolve => {
