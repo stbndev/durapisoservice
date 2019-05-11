@@ -8,6 +8,7 @@ let object = new Schema({
     maker: { type: String, required: true },
     name: String,
     description: String,
+    stock : Number,
     cost : Number,
     sale : Number,
     iva : Number,

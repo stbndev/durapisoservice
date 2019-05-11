@@ -59,6 +59,7 @@ module.exports = {
                         'maker': product.maker,
                         'name': product.name,
                         'description': product.description,
+                        'stock': product.stock,
                         'cost': product.cost,
                         'sale': product.sale,
                         'iva': product.iva,
@@ -191,7 +192,7 @@ module.exports = {
                         });
                     }
                     if (docs.length > 0) {
-                        console.dir(docs);
+                        
                         resolve({
                             statusCode: 200,
                             result: JSON.stringify(docs),
