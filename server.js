@@ -23,6 +23,7 @@ app.get('/', function (req, res) {
     });
 });
 
+routes = require('./routes/client.route')(app);
 routes = require('./routes/user.route')(app);
 routes = require('./routes/product.route')(app);
 
