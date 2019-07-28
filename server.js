@@ -23,6 +23,7 @@ app.get('/', function (req, res) {
     });
 });
 
+routes = require('./routes/download.route')(app);
 routes = require('./routes/client.route')(app);
 routes = require('./routes/user.route')(app);
 routes = require('./routes/product.route')(app);
@@ -40,5 +41,9 @@ mongoose.connect(configdb.url, {
 app.listen(app.get('port'), function () {
     console.log('Node app is running on port', app.get('port'));
 });
+
 // #20190501.1620
 // KICK OFF DURAPISOSERVICE
+// #20190728.0102
+// ADD FEATURES & COMPONENTS
+// 

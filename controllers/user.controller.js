@@ -2,7 +2,7 @@
  * Created by Voltron on 12/05/2017.
  */
 // const validator = require('validator');
-const userModel = require('../models/user.model');
+const downloadModel = require('../models/user.model');
 // const crypto = require('../util/crypto.util');
 // const userEntity = require('../entities/user.entity');
 // const enums = require('../util/enum.util');
@@ -27,7 +27,7 @@ module.exports = {
             "imgurl": "https://www.emojirequest.com/images/SalutingEmoji.jpg"
         };
         
-        userModel.asyncLogin(objUser).then(resolve => {
+        downloadModel.asyncLogin(objUser).then(resolve => {
             responseutil.Send(res, resolve.statusCode,resolve.result);
             next();
         }, reject => {
@@ -45,7 +45,7 @@ module.exports = {
     Delete: function (req, res, next) { },
     GetAll: function (req, res, next) {
 
-        // userModel.asyncGetAll().then(resolve => {
+        // downloadModel.asyncGetAll().then(resolve => {
         //     responseutil.Send(res, resolve.statusCode, resolve.result, resolve.message, resolve.href, resolve.function);
         //     next();
         // }, reject => {
