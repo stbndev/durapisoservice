@@ -29,9 +29,14 @@ module.exports = {
         });
     },
     Read: function (req, res, next) {
-        //     res.status(200).send({
-        //         'message': 'Welcome product!.'
-        //     });
+        const product = { id: req.query.id }
+        productModel.asyncRead(product).then(resolve => {
+            responseutil.Send(res, resolve.statusCode, resolve.result);
+            next();
+        }, reject => {
+            responseutil.Send(res, reject.statusCode, reject.result, resolve.message);
+            next();
+        });
     },
     Update: function (req, res, next) { },
     Delete: function (req, res, next) { },
