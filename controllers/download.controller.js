@@ -9,7 +9,7 @@ const responseutil = require('../config/response.util');
 // const SuperSecret = require('../config/SuperSecret');
 // const jwtutil = require('../util/jwt.util');
 module.exports = {
-    Create: function (req, res, next) { 
+    Create: function (req, res, next) {
         // Fill Download Object
         const datetmp = enums.DateTimeNowToMilliSeconds();
         let download = {
@@ -38,15 +38,48 @@ module.exports = {
             next();
         });
     },
-    Update: function (req, res, next) { },
-    Delete: function (req, res, next) { },
+    Update: function (req, res, next) {
+        // Fill Download Object
+        const datetmp = enums.DateTimeNowToMilliSeconds();
+        let download = {
+            id: req.params.id,
+            status_item: req.body.status_item,
+            modification_date: datetmp,
+            maker: req.body.maker,
+            title: req.body.title,
+            pathurl: req.body.pathurl
+        }
+        downloadModel.asyncUpdate(download).then(resolve => {
+            responseutil.Send(res, resolve.statusCode, resolve.result);
+            next();
+        }, reject => {
+            responseutil.Send(res, reject.statusCode, reject.result, resolve.message);
+            next();
+        });
+    },
+    Delete: function (req, res, next) { 
+        const datetmp = enums.DateTimeNowToMilliSeconds();
+        let download = {
+            id: req.params.id,
+            status_item: enums.STATUS_ITEM.DELETE,
+            modification_date: datetmp,
+            maker: req.body.maker
+        }
+        downloadModel.asyncDelete(download).then(resolve => {
+            responseutil.Send(res, resolve.statusCode, resolve.result, resolve.message);
+            // next();
+        }, reject => {
+            responseutil.Send(res, reject.statusCode, reject.result, resolve.message);
+            next();
+        });
+    },
     GetAll: function (req, res, next) {
-        
-        let download = { status_item : req.params.status }
+
+        let download = { status_item: req.params.status }
 
         downloadModel.asyncGetAll(download).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result);
-          //  next();
+            //  next();
         }, reject => {
             responseutil.Send(res, reject.statusCode, reject.result, reject.message, reject.href, reject.function);
             next();

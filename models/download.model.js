@@ -5,98 +5,93 @@ const enums = require('../config/enum.util');
 
 module.exports = {
     asyncDelete: function (download) {
-        // const promesa = new Promise(function (resolve, reject) {
-        //     try {
-        //         let query = downloadEntity.findOneAndUpdate({
-        //             '_id': download.id
-        //         }, {
-        //                 'status_item': download.status_item,
-        //                 'modification_date': download.modification_date,
-        //                 'maker': download.maker
-        //             }, {
-        //                 new: true
-        //             }, function (error, res) {
-        //                 if (error) {
-        //                     reject({
-        //                         statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
-        //                         result: '',
-        //                         message: error.message
-        //                     });
-        //                 }
-        //                 if (!enums.CheckExist(res._doc)) {
-        //                     reject({
-        //                         statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
-        //                         result: ` No found item ${download.id}`,
-        //                         message: 'set'
-        //                     });
-        //                 } else {
-        //                     resolve({
-        //                         statusCode: enums.HTTP_STATUS_CODE.OK,
-        //                         result: JSON.stringify(res),
-        //                         message: ''
-        //                     });
-        //                 }
-        //             });
-        //     } catch (error) {
-        //         reject({
-        //             statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
-        //             result: '',
-        //             message: error.message
-        //         });
-        //     }
-        // });
-        // return promesa;
+        const promesa = new Promise(function (resolve, reject) {
+            try {
+                let query = downloadEntity.findOneAndUpdate({
+                    '_id': download.id
+                }, {
+                        'status_item': download.status_item,
+                        'modification_date': download.modification_date,
+                        'maker': download.maker
+                    }, {
+                        new: true
+                    }, function (error, res) {
+                        if (error) {
+                            reject({
+                                statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
+                                result: '',
+                                message: error.message
+                            });
+                        }
+                        if (!enums.CheckExist(res._doc)) {
+                            reject({
+                                statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
+                                result: ` No found item ${download.id}`,
+                                message: 'set'
+                            });
+                        } else {
+                            resolve({
+                                statusCode: enums.HTTP_STATUS_CODE.OK,
+                                result: JSON.stringify(res),
+                                message: ''
+                            });
+                        }
+                    });
+            } catch (error) {
+                reject({
+                    statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
+                    result: '',
+                    message: error.message
+                });
+            }
+        });
+        return promesa;
     },
 
     asyncUpdate: function (download) {
-        // const promesa = new Promise(function (resolve, reject) {
-        //     try {
-        //         let query = downloadEntity.findOneAndUpdate({
-        //             '_id': download.id
-        //         }, {
-        //                 'status_item': download.status_item,
-        //                 'modification_date': download.modification_date,
-        //                 'maker': download.maker,
-        //                 'name': download.name,
-        //                 'description': download.description,
-        //                 'stock': download.stock,
-        //                 'cost': download.cost,
-        //                 'sale': download.sale,
-        //                 'iva': download.iva,
-        //                 'imgurl': download.imgurl
-        //             }, {
-        //                 new: true
-        //             }, function (error, res) {
-        //                 if (error) {
-        //                     reject({
-        //                         statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
-        //                         result: '',
-        //                         message: error.message
-        //                     });
-        //                 }
-        //                 if (!enums.CheckExist(res._doc)) {
-        //                     reject({
-        //                         statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
-        //                         result: ` No found item ${download.id}`,
-        //                         message: 'set'
-        //                     });
-        //                 } else {
-        //                     resolve({
-        //                         statusCode: enums.HTTP_STATUS_CODE.OK,
-        //                         result: JSON.stringify(res),
-        //                         message: ''
-        //                     });
-        //                 }
-        //             });
-        //     } catch (error) {
-        //         reject({
-        //             statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
-        //             result: '',
-        //             message: error.message
-        //         });
-        //     }
-        // });
-        // return promesa;
+        const promesa = new Promise(function (resolve, reject) {
+            try {
+                let query = downloadEntity.findOneAndUpdate({
+                    '_id': download.id
+                }, {
+                        'status_item': download.status_item,
+                        'modification_date': download.modification_date,
+                        'maker': download.maker,
+                        'title': download.title,
+                        'pathurl': download.pathurl
+                    }, {
+                        new: true
+                    }, function (error, res) {
+                        if (error) {
+                            reject({
+                                statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
+                                result: '',
+                                message: error.message
+                            });
+                        }
+                        if (!enums.CheckExist(res._doc)) {
+                            reject({
+                                statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
+                                result: ` No found item ${download.id}`,
+                                message: 'set'
+                            });
+                        } else {
+                            resolve({
+                                statusCode: enums.HTTP_STATUS_CODE.OK,
+                                result: JSON.stringify(res),
+                                message: ''
+                            });
+                        }
+                    });
+            } catch (error) {
+                reject({
+                    statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
+                    result: '',
+                    message: error.message
+                });
+            }
+        });
+        return promesa;
     }
     , asyncRead: function (download) {
         // let promesa = new Promise(function (resolve, reject) {
@@ -187,13 +182,13 @@ module.exports = {
                         });
                     }
                     if (docs.length > 0) {
-                        
+
                         resolve({
                             statusCode: 200,
                             result: JSON.stringify(docs),
                             message: ''
                         });
-                        
+
                     } else {
                         resolve({
                             statusCode: 404,
