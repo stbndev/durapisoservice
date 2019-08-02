@@ -57,13 +57,13 @@ module.exports = {
                         'status_item': client.status_item,
                         'modification_date': client.modification_date,
                         'maker': client.maker,
-                        'name': client.name,
                         'description': client.description,
-                        'stock': client.stock,
-                        'cost': client.cost,
-                        'sale': client.sale,
-                        'iva': client.iva,
-                        'imgurl': client.imgurl
+                        'imgurl': client.imgurl,
+                        'name': client.name,
+                        'lastname': client.lastname,
+                        'email': client.email,
+                        'mobil': client.mobil,
+                        'feedback': client.feedback
                     }, {
                         new: true
                     }, function (error, res) {
@@ -101,6 +101,7 @@ module.exports = {
     , asyncRead: function (client) {
         let promesa = new Promise(function (resolve, reject) {
             try {
+                
                 const query = clientEntity.find({ id: client.id });
 
                 query.exec(function (error, docs) {
@@ -113,9 +114,13 @@ module.exports = {
                         });
                     }
                     if (docs.length > 0) {
+
+                         // console.dir(docs[0]._doc);
+                         // console.log('end');
+                        
                         resolve({
                             statusCode: enums.HTTP_STATUS_CODE.OK,
-                            result: JSON.stringify(docs),
+                            result: JSON.stringify(docs[0]._doc),
                             message: ''
                         });
                     } else {
@@ -140,10 +145,13 @@ module.exports = {
                     create_date: client.create_date,
                     modification_date: client.modification_date,
                     maker: client.maker,
-                    name: client.name,
                     description: client.description,
-                    resenadurapiso: client.resenadurapiso,
-                    imgurl: client.imgurl
+                    imgurl: client.imgurl,
+                    name: client.name,
+                    lastname: client.lastname,
+                    email: client.email,
+                    mobil: client.mobil,
+                    feedback: client.feedback
                 });
 
                 objectEntity.save(function (error) {
@@ -178,7 +186,6 @@ module.exports = {
                     query = clientEntity.find({ status_item: client.status_item });
                 } else {
                     query = clientEntity.find({});
-
                 }
                 query.exec(function (error, docs) {
                     if (error) {
@@ -189,7 +196,7 @@ module.exports = {
                         });
                     }
                     if (docs.length > 0) {
-                        
+
                         resolve({
                             statusCode: 200,
                             result: JSON.stringify(docs),

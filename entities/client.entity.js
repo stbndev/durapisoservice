@@ -6,11 +6,14 @@ let object = new Schema({
     create_date: { type: Number, required: true },
     modification_date: { type: Number, required: true },
     maker: { type: String, required: true },
-    name: String,
     description: String,
-    resenadurapiso: { type: String, default: "En proceso. " },
-    imgurl: String
+    imgurl: String,
+    name: String,
+    lastname: String,
+    email: String,
+    mobil: String,
+    feedback: String
 });
 
-let products = mongoose.model('durapiso.clients', object);
-module.exports = products;
+let clients = mongoose.model('durapiso.clients', object);
+module.exports = clients;

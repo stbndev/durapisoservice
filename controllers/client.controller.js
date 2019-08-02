@@ -13,10 +13,13 @@ module.exports = {
             create_date: datetmp,
             modification_date: 0,
             maker: req.body.maker,
-            name: req.body.name,
             description: req.body.description,
-            resenadurapiso: req.body.resenadurapiso,
-            imgurl: req.body.imgurl
+            imgurl: req.body.imgurl,
+            name: req.body.name,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            mobil: req.body.mobil,
+            feedback: req.body.feedback
         }
         clientModel.asyncCreate(client).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result);
@@ -30,7 +33,7 @@ module.exports = {
         const client = { id: req.query.id }
         clientModel.asyncRead(client).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result);
-            next();
+            // next();
         }, reject => {
             responseutil.Send(res, reject.statusCode, reject.result, resolve.message);
             next();
@@ -39,19 +42,21 @@ module.exports = {
     Update: function (req, res, next) {
         // Fill Inventory Object
         const datetmp = enums.DateTimeNowToMilliSeconds();
+        
         let client = {
             id: req.params.id,
             status_item: req.body.status_item,
             modification_date: datetmp,
             maker: req.body.maker,
-            name: req.body.name,
             description: req.body.description,
-            stock: req.body.stock,
-            cost: req.body.cost,
-            sale: req.body.sale,
-            iva: req.body.iva,
-            imgurl: req.body.imgurl
+            imgurl: req.body.imgurl,
+            name: req.body.name,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            mobil: req.body.mobil,
+            feedback: req.body.feedback
         }
+        
         clientModel.asyncUpdate(client).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result);
             next();
@@ -59,6 +64,7 @@ module.exports = {
             responseutil.Send(res, reject.statusCode, reject.result, resolve.message);
             next();
         });
+        
     },
     Delete: function (req, res, next) {
         const datetmp = enums.DateTimeNowToMilliSeconds();
