@@ -1,18 +1,18 @@
 const Promise = require('promise');
-const clientEntity = require('../entities/client.entity');
+const promotionEntity = require('../entities/promotion.entity');
 const enums = require('../config/enum.util');
 // const responseutil = require('../util/response.util')
 
 module.exports = {
-    asyncDelete: function (client) {
+    asyncDelete: function (promotion) {
         const promesa = new Promise(function (resolve, reject) {
             try {
-                let query = clientEntity.findOneAndUpdate({
-                    '_id': client.id
+                let query = promotionEntity.findOneAndUpdate({
+                    '_id': promotion.id
                 }, {
-                        'status_item': client.status_item,
-                        'modification_date': client.modification_date,
-                        'maker': client.maker
+                        'status_item': promotion.status_item,
+                        'modification_date': promotion.modification_date,
+                        'maker': promotion.maker
                     }, {
                         new: true
                     }, function (error, res) {
@@ -26,7 +26,7 @@ module.exports = {
                         if (!enums.CheckExist(res._doc)) {
                             reject({
                                 statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
-                                result: ` No found item ${client.id}`,
+                                result: ` No found item ${promotion.id}`,
                                 message: 'set'
                             });
                         } else {
@@ -48,22 +48,22 @@ module.exports = {
         return promesa;
     },
 
-    asyncUpdate: function (client) {
+    asyncUpdate: function (promotion) {
         const promesa = new Promise(function (resolve, reject) {
             try {
-                let query = clientEntity.findOneAndUpdate({
-                    '_id': client.id
+                let query = promotionEntity.findOneAndUpdate({
+                    '_id': promotion.id
                 }, {
-                        'status_item': client.status_item,
-                        'modification_date': client.modification_date,
-                        'maker': client.maker,
-                        'description': client.description,
-                        'imgurl': client.imgurl,
-                        'name': client.name,
-                        'lastname': client.lastname,
-                        'email': client.email,
-                        'mobil': client.mobil,
-                        'feedback': client.feedback
+                        'status_item': promotion.status_item,
+                        'modification_date': promotion.modification_date,
+                        'maker': promotion.maker,
+                        'description': promotion.description,
+                        'imgurl': promotion.imgurl,
+                        'name': promotion.name,
+                        'lastname': promotion.lastname,
+                        'email': promotion.email,
+                        'mobil': promotion.mobil,
+                        'feedback': promotion.feedback
                     }, {
                         new: true
                     }, function (error, res) {
@@ -77,7 +77,7 @@ module.exports = {
                         if (!enums.CheckExist(res._doc)) {
                             reject({
                                 statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
-                                result: ` No found item ${client.id}`,
+                                result: ` No found item ${promotion.id}`,
                                 message: 'set'
                             });
                         } else {
@@ -98,11 +98,11 @@ module.exports = {
         });
         return promesa;
     }
-    , asyncRead: function (client) {
+    , asyncRead: function (promotion) {
         let promesa = new Promise(function (resolve, reject) {
             try {
                 
-                const query = clientEntity.find({ id: client.id });
+                const query = promotionEntity.find({ id: promotion.id });
 
                 query.exec(function (error, docs) {
                     if (error) {
@@ -137,21 +137,20 @@ module.exports = {
         });
         return promesa;
     },
-    asyncCreate: function (client) {
+    asyncCreate: function (promotion) {
         let promesa = new Promise(function (resolve, reject) {
             try {
-                let objectEntity = clientEntity({
-                    status_item: client.status_item,
-                    create_date: client.create_date,
-                    modification_date: client.modification_date,
-                    maker: client.maker,
-                    description: client.description,
-                    imgurl: client.imgurl,
-                    name: client.name,
-                    lastname: client.lastname,
-                    email: client.email,
-                    mobil: client.mobil,
-                    feedback: client.feedback
+                let objectEntity = promotionEntity({
+                    status_item: promotion.status_item,
+                    create_date: promotion.create_date,
+                    modification_date: promotion.modification_date,
+                    maker: promotion.maker,
+                    name: promotion.name,
+                    imgurl: promotion.imgurl,
+                    description: promotion.description,
+                    price: promotion.price,
+
+                    : promotion.feedback
                 });
 
                 objectEntity.save(function (error) {
@@ -177,15 +176,15 @@ module.exports = {
         return promesa;
     }
     ,
-    asyncGetAll: function (client) {
+    asyncGetAll: function (promotion) {
         let promesa = new Promise(function (resolve, reject) {
             try {
                 let query;
 
-                if (enums.CheckExist(client.status_item)) {
-                    query = clientEntity.find({ status_item: client.status_item });
+                if (enums.CheckExist(promotion.status_item)) {
+                    query = promotionEntity.find({ status_item: promotion.status_item });
                 } else {
-                    query = clientEntity.find({});
+                    query = promotionEntity.find({});
                 }
                 query.exec(function (error, docs) {
                     if (error) {
@@ -211,10 +210,10 @@ module.exports = {
                     }
                 });
 
-                // if (enums.CheckExist(client.status_item)) {
-                //     query = clientEntity.find({ status_item: client.status_item });
+                // if (enums.CheckExist(promotion.status_item)) {
+                //     query = promotionEntity.find({ status_item: promotion.status_item });
                 // } else {
-                //     query = clientEntity.find({});
+                //     query = promotionEntity.find({});
                 // }
 
                 // query.

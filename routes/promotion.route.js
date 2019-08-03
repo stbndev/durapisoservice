@@ -1,4 +1,4 @@
-const ctrl = require('../controllers/client.controller');
+const ctrl = require('../controllers/promotion.controller');
 
 module.exports = function (app) {
     // CRUD
