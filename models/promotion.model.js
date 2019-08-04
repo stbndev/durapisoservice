@@ -149,8 +149,9 @@ module.exports = {
                     imgurl: promotion.imgurl,
                     description: promotion.description,
                     price: promotion.price,
-
-                    : promotion.feedback
+                    offerprice: promotion.feedback,
+                    start_date: promotion.start_date,
+                    end_date: promotion.end_date
                 });
 
                 objectEntity.save(function (error) {
@@ -164,7 +165,7 @@ module.exports = {
                         resolve({
                             statusCode: enums.HTTP_STATUS_CODE.OK,
                             result: JSON.stringify(objectEntity),
-                            message: 'create object',
+                            message: 'object create',
                         });
                     }
                 });
