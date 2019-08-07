@@ -9,7 +9,7 @@ module.exports = function (app) {
     // app.patch('/api/items/:id', ctrl.Update);
     // app.delete('/api/items/:id', ctrl.Delete);
     // // get all
-    // app.get('/api/items', ctrl.GetAll);
+    app.get('/api/items', ctrl.GetAll);
 
 
 }

@@ -23,6 +23,8 @@ app.get('/', function (req, res) {
     });
 });
 
+routes = require('./routes/job.route')(app);
+routes = require('./routes/promotion.route')(app);
 routes = require('./routes/download.route')(app);
 routes = require('./routes/client.route')(app);
 routes = require('./routes/user.route')(app);

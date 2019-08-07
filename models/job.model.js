@@ -1,18 +1,17 @@
 const Promise = require('promise');
-const promotionEntity = require('../entities/promotion.entity');
+const jobEntity = require('../entities/job.entity');
 const enums = require('../config/enum.util');
-// const responseutil = require('../util/response.util')
 
 module.exports = {
-    asyncDelete: function (promotion) {
+    asyncDelete: function (job) {
         const promesa = new Promise(function (resolve, reject) {
             try {
-                let query = promotionEntity.findOneAndUpdate({
-                    '_id': promotion.id
+                let query = jobEntity.findOneAndUpdate({
+                    '_id': job.id
                 }, {
-                        'status_item': promotion.status_item,
-                        'modification_date': promotion.modification_date,
-                        'maker': promotion.maker
+                        'status_item': job.status_item,
+                        'modification_date': job.modification_date,
+                        'maker': job.maker
                     }, {
                         new: true
                     }, function (error, res) {
@@ -26,7 +25,7 @@ module.exports = {
                         if (!enums.CheckExist(res._doc)) {
                             reject({
                                 statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
-                                result: ` No found item ${promotion.id}`,
+                                result: ` No found item ${job.id}`,
                                 message: 'set'
                             });
                         } else {
@@ -47,23 +46,17 @@ module.exports = {
         });
         return promesa;
     },
-
-    asyncUpdate: function (promotion) {
+    asyncUpdate: function (job) {
         const promesa = new Promise(function (resolve, reject) {
             try {
-                let query = promotionEntity.findOneAndUpdate({
-                    '_id': promotion.id
+                let query = jobEntity.findOneAndUpdate({
+                    '_id': job.id
                 }, {
-                        'status_item': promotion.status_item,
-                        'modification_date': promotion.modification_date,
-                        'maker': promotion.maker,
-                        'name': promotion.name,
-                        'imgurl': promotion.imgurl,
-                        'description': promotion.description,
-                        'price': promotion.price,
-                        'offerprice': promotion.offerprice,
-                        'start_date': promotion.start_date,
-                        'end_date': promotion.end_date
+                        'status_item': job.status_item,
+                        'modification_date': job.modification_date,
+                        'maker': job.maker,
+                        'name': job.name,
+                        'path': job.path
                     }, {
                         new: true
                     }, function (error, res) {
@@ -77,7 +70,7 @@ module.exports = {
                         if (!enums.CheckExist(res._doc)) {
                             reject({
                                 statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
-                                result: ` No found item ${promotion.id}`,
+                                result: ` No found item ${job.id}`,
                                 message: 'set'
                             });
                         } else {
@@ -98,11 +91,11 @@ module.exports = {
         });
         return promesa;
     }
-    , asyncRead: function (promotion) {
+    , asyncRead: function (job) {
         let promesa = new Promise(function (resolve, reject) {
             try {
                 
-                const query = promotionEntity.find({ id: promotion.id });
+                const query = jobEntity.find({ id: job.id });
 
                 query.exec(function (error, docs) {
                     if (error) {
@@ -110,14 +103,9 @@ module.exports = {
                             statusCode: enums.HTTP_STATUS_CODE.BAD_GATEWAY,
                             result: '',
                             message: error.message
-
                         });
                     }
                     if (docs.length > 0) {
-
-                         // console.dir(docs[0]._doc);
-                         // console.log('end');
-                        
                         resolve({
                             statusCode: enums.HTTP_STATUS_CODE.OK,
                             result: JSON.stringify(docs[0]._doc),
@@ -137,21 +125,16 @@ module.exports = {
         });
         return promesa;
     },
-    asyncCreate: function (promotion) {
+    asyncCreate: function (job) {
         let promesa = new Promise(function (resolve, reject) {
             try {
-                let objectEntity = promotionEntity({
-                    status_item: promotion.status_item,
-                    create_date: promotion.create_date,
-                    modification_date: promotion.modification_date,
-                    maker: promotion.maker,
-                    name: promotion.name,
-                    imgurl: promotion.imgurl,
-                    description: promotion.description,
-                    price: promotion.price,
-                    offerprice: promotion.offerprice,
-                    start_date: promotion.start_date,
-                    end_date: promotion.end_date
+                let objectEntity = jobEntity({
+                    status_item: job.status_item,
+                    create_date: job.create_date,
+                    modification_date: job.modification_date,
+                    maker: job.maker,
+                    name: job.name,
+                    path: job.path
                 });
 
                 objectEntity.save(function (error) {
@@ -177,15 +160,15 @@ module.exports = {
         return promesa;
     }
     ,
-    asyncGetAll: function (promotion) {
+    asyncGetAll: function (job) {
         let promesa = new Promise(function (resolve, reject) {
             try {
                 let query;
 
-                if (enums.CheckExist(promotion.status_item)) {
-                    query = promotionEntity.find({ status_item: promotion.status_item });
+                if (enums.CheckExist(job.status_item)) {
+                    query = jobEntity.find({ status_item: job.status_item });
                 } else {
-                    query = promotionEntity.find({});
+                    query = jobEntity.find({});
                 }
                 query.exec(function (error, docs) {
                     if (error) {
@@ -210,14 +193,6 @@ module.exports = {
                         });
                     }
                 });
-
-                // if (enums.CheckExist(promotion.status_item)) {
-                //     query = promotionEntity.find({ status_item: promotion.status_item });
-                // } else {
-                //     query = promotionEntity.find({});
-                // }
-
-                // query.
             } catch (error) {
                 error(error);
             }

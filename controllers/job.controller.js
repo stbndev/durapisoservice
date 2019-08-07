@@ -1,29 +1,22 @@
-/**
- * Created by Voltron on 201980802.
- */
+
 const responseutil = require('../config/response.util');
 const enums = require('../config/enum.util');
-const promotionModel = require('../models/promotion.model');
+const jobModel = require('../models/job.model');
 module.exports = {
     Create: function (req, res, next) {
         // Fill Inventory Object
         const datetmp = enums.DateTimeNowToMilliSeconds();
 
-        let promotion = {
+        let job = {
             status_item: enums.STATUS_ITEM.ACTIVO,
             create_date: datetmp,
             modification_date: 0,
             maker: req.body.maker,
             name: req.body.name,
-            imgurl: req.body.imgurl,
-            description: req.body.description,
-            price: req.body.price,
-            offerprice: req.body.offerprice,
-            start_date: req.body.start_date,
-            end_date: req.body.end_date
+            path: req.body.path
         }
 
-        promotionModel.asyncCreate(promotion).then(resolve => {
+        jobModel.asyncCreate(job).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result);
             next();
         }, reject => {
@@ -32,8 +25,8 @@ module.exports = {
         });
     },
     Read: function (req, res, next) {
-        const promotion = { id: req.query.id }
-        promotionModel.asyncRead(promotion).then(resolve => {
+        const job = { id: req.query.id }
+        jobModel.asyncRead(job).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result);
             // next();
         }, reject => {
@@ -45,7 +38,7 @@ module.exports = {
         // Fill Inventory Object
         const datetmp = enums.DateTimeNowToMilliSeconds();
 
-        let promotion = {
+        let job = {
             id: req.params.id,
             status_item: req.body.status_item,
             modification_date: datetmp,
@@ -59,7 +52,7 @@ module.exports = {
             end_date: req.body.end_date
         }
 
-        promotionModel.asyncUpdate(promotion).then(resolve => {
+        jobModel.asyncUpdate(job).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result);
             next();
         }, reject => {
@@ -70,13 +63,13 @@ module.exports = {
     },
     Delete: function (req, res, next) {
         const datetmp = enums.DateTimeNowToMilliSeconds();
-        let promotion = {
+        let job = {
             id: req.params.id,
             status_item: enums.STATUS_ITEM.DELETE,
             modification_date: datetmp,
             maker: req.body.maker
         }
-        promotionModel.asyncDelete(promotion).then(resolve => {
+        jobModel.asyncDelete(job).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result, resolve.message);
             next();
         }, reject => {
@@ -86,8 +79,8 @@ module.exports = {
     },
     GetAll: function (req, res, next) {
 
-        let promotion = { status_item: req.params.status }
-        promotionModel.asyncGetAll(promotion).then(resolve => {
+        let job = { status_item: req.params.status }
+        jobModel.asyncGetAll(job).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result);
             //  next();
         }, reject => {
