@@ -17,7 +17,7 @@ module.exports = {
                             message: error.message
                         });
                     }
-
+                    
                     if (docs.length > 0) {
                         resolve({
                             statusCode: 200,

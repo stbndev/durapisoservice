@@ -7,9 +7,9 @@ let object = new Schema({
     modification_date: { type: Number, required: true },
     maker: { type: String, required: true },
     name: String,
-    email: String,
-    password: String,
-    description: Number,
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    description: String,
     imgurl: String
 });
 
