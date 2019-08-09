@@ -1,7 +1,7 @@
 
 const responseutil = require('../config/response.util');
 const enums = require('../config/enum.util');
-const userModel = require('../models/job.model');
+const userModel = require('../models/user.model');
 module.exports = {
     Login: function (req, res, next) {
         let objUser = {
@@ -17,7 +17,7 @@ module.exports = {
             "imgurl": "https://www.emojirequest.com/images/SalutingEmoji.jpg"
         };
         userModel.asyncLogin(objUser).then(resolve => {
-            responseutil.Send(res, resolve.statusCode,resolve.result);
+            responseutil.Send(res, resolve.statusCode, resolve.result);
             next();
         }, reject => {
             // responseutil.Send(res, reject.statusCode, reject.result, reject.message, reject.href, reject.function);
@@ -99,11 +99,9 @@ module.exports = {
         });
     },
     GetAll: function (req, res, next) {
-
-        let job = { status_item: req.params.status }
-        userModel.asyncGetAll(job).then(resolve => {
+        userModel.asyncGetAll().then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result);
-            //  next();
+             next();
         }, reject => {
             responseutil.Send(res, reject.statusCode, reject.result, reject.message);
             next();
