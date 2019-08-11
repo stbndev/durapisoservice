@@ -3,7 +3,7 @@ const ctrl = require('../controllers/user.controller');
 module.exports = function (app) {
     // CRUD
     app.post('/api/login', ctrl.Login);
-//    app.post('/api/login', ctrl.Create);
+    app.post('/api/users', ctrl.Create);
 
     // app.get('/api/items/:id', ctrl.Read);
     // app.patch('/api/items/:id', ctrl.Update);

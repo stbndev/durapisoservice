@@ -1,9 +1,46 @@
 const Promise = require('promise');
 const userEntity = require('../entities/user.entity');
-// const enums = require('../util/enum.util');
+const enums = require('../config/enum.util');
 // const responseutil = require('../util/response.util')
 
 module.exports = {
+    asyncCreate: function (user) {
+        let promesa = new Promise(function (resolve, reject) {
+            try {
+                let objectEntity = userEntity({
+                    status_item: user.status_item,
+                    create_date: user.create_date,
+                    modification_date: user.modification_date,
+                    maker: user.maker,
+                    name: user.name,
+                    email: user.email,
+                    password: user.password,
+                    description: user.description,
+                    imgurl: user.imgurl
+                });
+
+                objectEntity.save(function (error) {
+                    if (error) {
+                        reject({
+                            statusCode: enums.HTTP_STATUS_CODE.BAD_REQUEST,
+                            result: '',
+                            message: error.message,
+                        });
+                    } else {
+                        resolve({
+                            statusCode: enums.HTTP_STATUS_CODE.OK,
+                            result: JSON.stringify(objectEntity),
+                            message: 'object create',
+                        });
+                    }
+                });
+            } catch
+            (error) {
+                error(error);
+            }
+        });
+        return promesa;
+    },
     asyncGetAll: function () {
         let promesa = new Promise(function (resolve, reject) {
             try {

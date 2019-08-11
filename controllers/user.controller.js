@@ -25,21 +25,24 @@ module.exports = {
         });
     },
     Create: function (req, res, next) {
-        // Fill Inventory Object
+        // Fill User Object
         const datetmp = enums.DateTimeNowToMilliSeconds();
 
-        let job = {
+        let user = {
             status_item: enums.STATUS_ITEM.ACTIVO,
             create_date: datetmp,
             modification_date: 0,
             maker: req.body.maker,
             name: req.body.name,
-            path: req.body.path
+            email: req.body.email,
+            password: req.body.password,
+            description: req.body.description,
+            imgurl: req.body.imgurl
         }
 
-        userModel.asyncCreate(job).then(resolve => {
+        userModel.asyncCreate(user).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result);
-            next();
+           // next();
         }, reject => {
             responseutil.Send(res, reject.statusCode, reject.result, reject.message);
             next();
