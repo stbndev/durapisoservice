@@ -68,12 +68,10 @@ module.exports = {
             modification_date: datetmp,
             maker: req.body.maker,
             name: req.body.name,
-            imgurl: req.body.imgurl,
+            email: req.body.email,
+            password: req.body.password,
             description: req.body.description,
-            price: req.body.price,
-            offerprice: req.body.offerprice,
-            start_date: req.body.start_date,
-            end_date: req.body.end_date
+            imgurl: req.body.imgurl
         }
 
         userModel.asyncUpdate(user).then(resolve => {
