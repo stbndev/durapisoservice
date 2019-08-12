@@ -49,8 +49,8 @@ module.exports = {
         });
     },
     Read: function (req, res, next) {
-        const job = { id: req.query.id }
-        userModel.asyncRead(job).then(resolve => {
+        const user = { id: req.query.id }
+        userModel.asyncRead(user).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result);
             // next();
         }, reject => {
@@ -62,7 +62,7 @@ module.exports = {
         // Fill Inventory Object
         const datetmp = enums.DateTimeNowToMilliSeconds();
 
-        let job = {
+        let user = {
             id: req.params.id,
             status_item: req.body.status_item,
             modification_date: datetmp,
@@ -76,7 +76,7 @@ module.exports = {
             end_date: req.body.end_date
         }
 
-        userModel.asyncUpdate(job).then(resolve => {
+        userModel.asyncUpdate(user).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result);
             next();
         }, reject => {
@@ -87,13 +87,14 @@ module.exports = {
     },
     Delete: function (req, res, next) {
         const datetmp = enums.DateTimeNowToMilliSeconds();
-        let job = {
+        let user = {
             id: req.params.id,
             status_item: enums.STATUS_ITEM.DELETE,
             modification_date: datetmp,
             maker: req.body.maker
-        }
-        userModel.asyncDelete(job).then(resolve => {
+        };
+        
+        userModel.asyncDelete(user).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result, resolve.message);
             next();
         }, reject => {

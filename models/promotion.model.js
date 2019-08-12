@@ -47,7 +47,6 @@ module.exports = {
         });
         return promesa;
     },
-
     asyncUpdate: function (promotion) {
         const promesa = new Promise(function (resolve, reject) {
             try {
