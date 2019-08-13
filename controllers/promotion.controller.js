@@ -78,7 +78,7 @@ module.exports = {
         }
         promotionModel.asyncDelete(promotion).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result, resolve.message);
-            next();
+            // next();
         }, reject => {
             responseutil.Send(res, reject.statusCode, reject.result, resolve.message);
             next();
