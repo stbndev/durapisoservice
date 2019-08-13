@@ -10,7 +10,7 @@ let object = new Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
     description: String,
-    imgurl: String
+    imgurl: {type: String, default: 'https://reypila.github.io/durapiso/images/profile/015-man-11.png'}
 });
 
 let users = mongoose.model('durapiso.users', object);
