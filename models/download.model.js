@@ -58,6 +58,7 @@ module.exports = {
                         'modification_date': download.modification_date,
                         'maker': download.maker,
                         'title': download.title,
+                        'description': download.description,
                         'pathurl': download.pathurl
                     }, {
                         new: true
@@ -136,6 +137,7 @@ module.exports = {
                     modification_date: download.modification_date,
                     maker: download.maker,
                     title: download.title,
+                    description: download.description,
                     pathurl: download.pathurl
                 });
 

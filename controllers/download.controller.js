@@ -18,6 +18,7 @@ module.exports = {
             modification_date: 0,
             maker: req.body.maker,
             title: req.body.title,
+            description: req.body.description,
             pathurl: req.body.pathurl
         }
         downloadModel.asyncCreate(download).then(resolve => {
@@ -47,6 +48,7 @@ module.exports = {
             modification_date: datetmp,
             maker: req.body.maker,
             title: req.body.title,
+            description: req.body.description,
             pathurl: req.body.pathurl
         }
         downloadModel.asyncUpdate(download).then(resolve => {

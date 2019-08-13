@@ -6,8 +6,9 @@ let object = new Schema({
     create_date: { type: Number, required: true },
     modification_date: { type: Number, required: true },
     maker: { type: String, required: true },
-    title:  String,
-    pathurl: String
+    title: { type: String, required: true },
+    description: String,
+    pathurl: { type: String, required: true }
 });
 
 let users = mongoose.model('durapiso.downloads', object);
