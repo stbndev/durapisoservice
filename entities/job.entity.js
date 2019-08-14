@@ -7,7 +7,8 @@ let object = new Schema({
     modification_date: { type: Number, required: true },
     maker: { type: String, required: true },
     name: { type: String, required: true },
-    path: { type: String, required: true }
+    description: { type: String, required: true },
+    pathurl: { type: String, required: false }
 });
 
 let jobs = mongoose.model('durapiso.jobs', object);
