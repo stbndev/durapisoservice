@@ -13,7 +13,8 @@ module.exports = {
             modification_date: 0,
             maker: req.body.maker,
             name: req.body.name,
-            path: req.body.path
+            description: req.body.description,
+            pathurl: req.body.pathurl
         }
 
         jobModel.asyncCreate(job).then(resolve => {
@@ -44,12 +45,8 @@ module.exports = {
             modification_date: datetmp,
             maker: req.body.maker,
             name: req.body.name,
-            imgurl: req.body.imgurl,
             description: req.body.description,
-            price: req.body.price,
-            offerprice: req.body.offerprice,
-            start_date: req.body.start_date,
-            end_date: req.body.end_date
+            pathurl: req.body.pathurl
         }
 
         jobModel.asyncUpdate(job).then(resolve => {

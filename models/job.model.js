@@ -56,7 +56,8 @@ module.exports = {
                         'modification_date': job.modification_date,
                         'maker': job.maker,
                         'name': job.name,
-                        'path': job.path
+                        'description': job.description,
+                        'pathurl': job.path
                     }, {
                         new: true
                     }, function (error, res) {
@@ -134,7 +135,8 @@ module.exports = {
                     modification_date: job.modification_date,
                     maker: job.maker,
                     name: job.name,
-                    path: job.path
+                    description: job.description,
+                    pathurl: job.pathurl
                 });
 
                 objectEntity.save(function (error) {

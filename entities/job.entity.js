@@ -8,7 +8,7 @@ let object = new Schema({
     maker: { type: String, required: true },
     name: { type: String, required: true },
     description: { type: String, required: true },
-    pathurl: { type: String, required: false }
+    pathurl: String
 });
 
 let jobs = mongoose.model('durapiso.jobs', object);
