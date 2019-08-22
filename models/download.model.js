@@ -57,7 +57,7 @@ module.exports = {
                         'status_item': download.status_item,
                         'modification_date': download.modification_date,
                         'maker': download.maker,
-                        'title': download.title,
+                        'name': download.name,
                         'description': download.description,
                         'pathurl': download.pathurl
                     }, {
@@ -136,7 +136,7 @@ module.exports = {
                     create_date: download.create_date,
                     modification_date: download.modification_date,
                     maker: download.maker,
-                    title: download.title,
+                    name: download.name,
                     description: download.description,
                     pathurl: download.pathurl
                 });
@@ -162,8 +162,7 @@ module.exports = {
             }
         });
         return promesa;
-    }
-    ,
+    },
     asyncGetAll: function (download) {
         let promesa = new Promise(function (resolve, reject) {
             try {
