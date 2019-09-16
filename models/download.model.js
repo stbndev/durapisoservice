@@ -57,7 +57,7 @@ module.exports = {
                         'status_item': download.status_item,
                         'modification_date': download.modification_date,
                         'maker': download.maker,
-                        'name': download.name,
+                        'title': download.title,
                         'description': download.description,
                         'pathurl': download.pathurl
                     }, {
@@ -136,7 +136,7 @@ module.exports = {
                     create_date: download.create_date,
                     modification_date: download.modification_date,
                     maker: download.maker,
-                    name: download.name,
+                    title: download.title,
                     description: download.description,
                     pathurl: download.pathurl
                 });

@@ -12,7 +12,7 @@ module.exports = {
             create_date: datetmp,
             modification_date: 0,
             maker: req.body.maker,
-            name: req.body.name,
+            title: req.body.title,
             description: req.body.description,
             pathurl: req.body.pathurl
         }
@@ -27,8 +27,8 @@ module.exports = {
         
     },
     Read: function (req, res, next) {
-        const product = { id: req.query.id }
-        productModel.asyncRead(product).then(resolve => {
+        const download = { id: req.query.id }
+        downloadModel.asyncRead(download).then(resolve => {
             responseutil.Send(res, resolve.statusCode, resolve.result);
             next();
         }, reject => {
@@ -44,7 +44,7 @@ module.exports = {
             status_item: req.body.status_item,
             modification_date: datetmp,
             maker: req.body.maker,
-            name: req.body.name,
+            title: req.body.title,
             description: req.body.description,
             pathurl: req.body.pathurl
         }

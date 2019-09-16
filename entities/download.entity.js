@@ -6,7 +6,7 @@ let object = new Schema({
     create_date: { type: Number, required: true },
     modification_date: { type: Number, required: true },
     maker: { type: String, required: true },
-    name: { type: String, required: true },
+    title: { type: String, required: true },
     description: String,
     pathurl: { type: String, required: true }
 });
